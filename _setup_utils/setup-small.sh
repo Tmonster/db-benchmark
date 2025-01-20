@@ -14,7 +14,7 @@ sudo apt-get -qq install -y r-base-dev virtualenv
 sudo apt-get -qq install openjdk-8-jdk
 
 sudo apt-get install -y zlib1g-dev
-sudo apt-get install -y pandoc
+sudo apt-get install -y pandoc unzip
 
 # update virtualenv
 python3 -m pip install virtualenv

@@ -29,6 +29,13 @@ else
   Rscript -e 'swap_all<-data.table::fread("free -h | grep Swap", header=FALSE)[, -1L][, as.numeric(gsub("[^0-9.]", "", unlist(.SD)))]; swap_off<-!is.na(s<-sum(swap_all)) && s==0; q("no", status=as.numeric(swap_off))' && echo "# Benchmark run $BATCH aborted. swap is enabled, 'free -h' has to report only 0s for Swap, run 'swapoff -a' before calling 'run.sh'" && exit;
 fi
 
+
+if [[ $MACHINE_TYPE != 'small' && $MACHINE_TYPE != 'medium' && $MACHINE_TYPE != 'large' ]]; then
+  echo "Machine type is not valid. Must be \`small\` \`medium\` or \`large\` "
+  exit 1
+fi
+
+
 # ensure directories exists
 mkdir -p ./out
 if [[ ! -d ./data ]]; then echo "# Benchmark run $BATCH aborted. './data' directory does not exists" && exit; fi;

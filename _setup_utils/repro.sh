@@ -38,7 +38,6 @@ cd ..
 
 Rscript -e 'install.packages(c("jsonlite","bit64","devtools","rmarkdown"), dependecies=TRUE, repos="https://cloud.r-project.org")'
 
-
 source ./pandas/py-pandas/bin/activate
 python3 -m pip install --upgrade psutil
 python3 -m pip install --upgrade pandas

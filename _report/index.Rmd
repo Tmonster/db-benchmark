@@ -54,23 +54,25 @@ dt_join = lld[task=="join"]
 ```
 
 ```{r helpers}
-loop_benchplot = function(dt_task, report_name, syntax.dict, exceptions, solution.dict, question.txt.fun = NULL, title.txt.fun = NULL, data_namev, q_groupv, cutoff=NULL, pending=NULL) {
+loop_benchplot = function(dt_task, report_name, syntax.dict, exceptions, solution.dict, question.txt.fun = NULL, title.txt.fun = NULL, data_namev, q_groupv, cutoff=NULL, pending=NULL, machine_types) {
   for (data_name in data_namev) {
-    for (q_group in q_groupv) {
-      message(sprintf("benchplot %s %s %s", report_name, data_name, q_group))
-      benchplot(
-        x = dt_task[data==data_name & question_group==q_group],
-        filename = file.path("public", report_name, sprintf("%s_%s.png", data_name, q_group)),
-        solution.dict = solution.dict,
-        syntax.dict = syntax.dict,
-        exceptions = exceptions,
-        question.txt.fun = question.txt.fun,
-        title.txt.fun = title.txt.fun,
-        cutoff = cutoff,
-        pending = pending,
-        url.footer = "https://duckdblabs.github.io/db-benchmark",
-        interactive = FALSE
-      )
+    for (m_type in machine_types) {
+      for (q_group in q_groupv) {
+        message(sprintf("benchplot %s %s %s", report_name, data_name, q_group))
+        benchplot(
+          x = dt_task[data==data_name & question_group==q_group & machine_type==m_type],
+          filename = file.path("public", report_name, sprintf("%s_%s_%s.png", data_name, q_group, m_type)),
+          solution.dict = solution.dict,
+          syntax.dict = syntax.dict,
+          exceptions = exceptions,
+          question.txt.fun = question.txt.fun,
+          title.txt.fun = title.txt.fun,
+          cutoff = cutoff,
+          pending = pending,
+          url.footer = "https://duckdblabs.github.io/db-benchmark",
+          interactive = FALSE
+        )
+      }
     }
   }
 }
@@ -88,56 +90,130 @@ hours_took = function(lld) {
 
 ```{r report_groupby, message=FALSE}
 data_name = get_data_levels()[["groupby"]]
-loop_benchplot(dt_groupby, report_name="groupby", syntax.dict=groupby.syntax.dict, exceptions=groupby.exceptions, solution.dict=solution.dict, data_namev=data_name, q_groupv=c("basic","advanced"), title.txt.fun = header_title_fun, question.txt.fun = groupby_q_title_fun, cutoff = "spark", pending = "Modin")
+machine_types = get_machine_types()
+loop_benchplot(dt_groupby, report_name="groupby", syntax.dict=groupby.syntax.dict, exceptions=groupby.exceptions, solution.dict=solution.dict, data_namev=data_name, q_groupv=c("basic","advanced"), title.txt.fun = header_title_fun, question.txt.fun = groupby_q_title_fun, cutoff = "spark", pending = "Modin", machine_types)
 ```
 
 ```{r report_join, message=FALSE}
 data_name = get_data_levels()[["join"]]
-loop_benchplot(dt_join, report_name="join", syntax.dict=join.syntax.dict, exceptions=join.exceptions, solution.dict=solution.dict, data_namev=data_name, q_groupv=c("basic"), title.txt.fun = header_title_fun, question.txt.fun = join_q_title_fun, cutoff = "spark", pending = "Modin")
+machine_types = get_machine_types()
+loop_benchplot(dt_join, report_name="join", syntax.dict=join.syntax.dict, exceptions=join.exceptions, solution.dict=solution.dict, data_namev=data_name, q_groupv=c("basic"), title.txt.fun = header_title_fun, question.txt.fun = join_q_title_fun, cutoff = "spark", pending = "Modin", machine_types)
 ```
 
 
-## Task {.tabset .tabset-fade .tabset-pills}
+## Machine Type {.tabset .tabset-fade .tabset-pills}
 
-### groupby {.tabset .tabset-fade .tabset-pills}
+### Small (32 cores / 64GB memory)
 
-#### 0.5 GB
+#### Task {.tabset .tabset-fade .tabset-pills}
 
-##### **basic questions**
+##### groupby {.tabset .tabset-fade .tabset-pills}
 
-![](./groupby/G1_1e7_1e2_0_0_basic.png)
+###### 0.5 GB
 
-##### **advanced questions**
+####### **basic questions**
 
-![](./groupby/G1_1e7_1e2_0_0_advanced.png)
+![](./groupby/G1_1e7_1e2_0_0_basic_small.png)
 
-#### 5 GB
+####### **advanced questions**
 
-##### **basic questions**
+![](./groupby/G1_1e7_1e2_0_0_advanced_small.png)
 
-![](./groupby/G1_1e8_1e2_0_0_basic.png)
+###### 5 GB
 
-##### **advanced questions**
+####### **basic questions**
 
-![](./groupby/G1_1e8_1e2_0_0_advanced.png)
+![](./groupby/G1_1e8_1e2_0_0_basic_small.png)
 
-#### 50 GB {.active}
+####### **advanced questions**
 
-##### **basic questions**
+![](./groupby/G1_1e8_1e2_0_0_advanced_small.png)
 
-![](./groupby/G1_1e9_1e2_0_0_basic.png)
+###### 50 GB {.active}
 
-##### **advanced questions**
+####### **basic questions**
 
-![](./groupby/G1_1e9_1e2_0_0_advanced.png)
+![](./groupby/G1_1e9_1e2_0_0_basic_small.png)
 
-### join {.tabset .tabset-fade .tabset-pills}
+####### **advanced questions**
 
-#### 0.5 GB
+![](./groupby/G1_1e9_1e2_0_0_advanced_small.png)
 
-##### **basic questions**
+##### join {.tabset .tabset-fade .tabset-pills}
 
-![](./join/J1_1e7_NA_0_0_basic.png)
+###### 0.5 GB
+
+####### **basic questions**
+
+![](./join/J1_1e7_NA_0_0_basic_small.png)
+
+###### 5 GB 
+
+####### **basic questions**
+
+![](./join/J1_1e8_NA_0_0_basic_small.png)
+
+###### 50 GB {.active}
+
+####### **basic questions**
+
+![](./join/J1_1e9_NA_0_0_basic_small.png)
+
+### X-Large (128 cores / 256GB memory)
+
+#### Task {.tabset .tabset-fade .tabset-pills}
+
+##### groupby {.tabset .tabset-fade .tabset-pills}
+
+###### 0.5 GB
+
+####### **basic questions**
+
+![](./groupby/G1_1e7_1e2_0_0_basic_xlarge.png)
+
+####### **advanced questions**
+
+![](./groupby/G1_1e7_1e2_0_0_advanced_xlarge.png)
+
+###### 5 GB
+
+####### **basic questions**
+
+![](./groupby/G1_1e8_1e2_0_0_basic_xlarge.png)
+
+####### **advanced questions**
+
+![](./groupby/G1_1e8_1e2_0_0_advanced_xlarge.png)
+
+###### 50 GB {.active}
+
+####### **basic questions**
+
+![](./groupby/G1_1e9_1e2_0_0_basic_xlarge.png)
+
+####### **advanced questions**
+
+![](./groupby/G1_1e9_1e2_0_0_advanced_xlarge.png)
+
+##### join {.tabset .tabset-fade .tabset-pills}
+
+###### 0.5 GB
+
+####### **basic questions**
+
+![](./join/J1_1e7_NA_0_0_basic_xlarge.png)
+
+###### 5 GB
+
+####### **basic questions**
+
+![](./join/J1_1e8_NA_0_0_basic_xlarge.png)
+
+###### 50 GB {.active}
+
+####### **basic questions**
+
+![](./join/J1_1e9_NA_0_0_basic_xlarge.png)
 
 <!--
 ##### **advanced questions**

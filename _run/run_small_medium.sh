@@ -57,3 +57,4 @@ echo "done..."
 echo "removing small data files"
 rm data/*.csv
 rm data/*.duckdb
+

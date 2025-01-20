@@ -36,7 +36,7 @@ jobs:
 
     - name: Install libraries
       shell: bash
-      run: ./_utils/setup-small.sh
+      run: ./_setup_utils/setup-small.sh
 
     - name: Generate 500mb datasets
       shell: bash
@@ -68,14 +68,14 @@ jobs:
     - name: Run mini GroupBy benchmark
       shell: bash
       run: |
-        python3 _utils/prep_solutions.py --task=groupby --solution=${{ matrix.solution }}
+        python3 _setup_utils/prep_solutions.py --task=groupby --solution=${{ matrix.solution }}
         source path.env
         TEST_RUN=true TEST_MOUNT_DIR=$GITHUB_WORKSPACE ./run.sh
 
     - name: Run mini Join benchmark
       shell: bash
       run: |
-        python3 _utils/prep_solutions.py --task=join --solution=${{ matrix.solution }}
+        python3 _setup_utils/prep_solutions.py --task=join --solution=${{ matrix.solution }}
         source path.env
         TEST_RUN=true TEST_MOUNT_DIR=$GITHUB_WORKSPACE ./run.sh
 
@@ -123,7 +123,7 @@ jobs:
 
     - name: Install libraries
       shell: bash
-      run: ./_utils/setup-small.sh
+      run: ./_setup_utils/setup-small.sh
 
     - name: Generate 500mb datasets
       shell: bash
@@ -144,14 +144,14 @@ jobs:
     - name: Run mini GroupBy benchmark
       shell: bash
       run: |
-        python3 _utils/prep_solutions.py --task=groupby --solution=all
+        python3 _setup_utils/prep_solutions.py --task=groupby --solution=all
         source path.env
         TEST_RUN=true TEST_MOUNT_DIR=$GITHUB_WORKSPACE ./run.sh
 
     - name: Run mini Join benchmark
       shell: bash
       run: |
-        python3 _utils/prep_solutions.py --task=join --solution=all
+        python3 _setup_utils/prep_solutions.py --task=join --solution=all
         source path.env
         TEST_RUN=true TEST_MOUNT_DIR=$GITHUB_WORKSPACE ./run.sh
 

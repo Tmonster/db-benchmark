@@ -18,7 +18,8 @@ fun = ".sql"
 cache = "TRUE"
 
 data_name = os.environ['SRC_DATANAME']
-on_disk = data_name.split("_")[1] == "1e9" # on-disk data storage #126
+machine_type = os.environ["MACHINE_TYPE"]
+on_disk = data_name.split("_")[1] >= "1e9" # on-disk data storage #126
 src_jn_x = os.path.join("data", data_name+".csv")
 y_data_name = join_to_tbls(data_name)
 src_jn_y = [os.path.join("data", y_data_name[0]+".csv"), os.path.join("data", y_data_name[1]+".csv"), os.path.join("data", y_data_name[2]+".csv")]

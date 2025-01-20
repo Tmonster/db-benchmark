@@ -21,8 +21,14 @@ get_data_levels = function() {
   in_rows = c("1e7","1e8","1e9")
   k_na_sort = "1e2_0_0"
   groupby2014 = paste("G0", paste(rep(in_rows, each=length(k_na_sort)), k_na_sort, sep="_"), sep="_")
+
   list(groupby=groupby, join=join, groupby2014=groupby2014)
 }
+
+get_machine_types = function() {
+  c('xlarge', 'small')
+}
+
 get_excluded_batch = function() {
   c(
     1552478772L, 1552482879L # testing different data as 1e9_1e2_0_0 to test logical compression of measures
@@ -143,8 +149,9 @@ model_time = function(d) {
   setnames(d, c("chk_1","out_rows_1","out_cols_1"), c("chk","out_rows","out_cols"))
   d
 }
+
 model_logs = function(l) {
-  l = dcast(l, nodename+batch+solution+version+git+task+data ~ action, value.var=c("timestamp","stderr"))
+  l = dcast(l, nodename+batch+solution+version+git+task+data+machine_type ~ action, value.var=c("timestamp","stderr"))
   l[, stderr_start := NULL]
   setnames(l, c("stderr_finish","timestamp_start","timestamp_finish"), c("script_stderr","script_start","script_finish"))
   l
@@ -162,6 +169,7 @@ merge_logs_questions = function(l, q) {
                  nodename, batch, solution, task, data,
                  question=x.question, question_group=x.question_group,
                  version=i.version, git=i.git,
+                 machine_type=i.machine_type,
                  script_start=i.script_start, script_finish=i.script_finish, script_stderr=i.script_stderr
                )]
   lq
@@ -228,7 +236,7 @@ transform = function(ld) {
   }
   
   ld[, c(list(nodename=nodename, batch=batch, ibatch=as.integer(ft(as.character(batch))), solution=solution,
-              question=question, question_group=question_group, fun=fun, on_disk=on_disk, cache=cache, version=version, git=git, task=task, data=data, engine=engine),
+              question=question, question_group=question_group, fun=fun, on_disk=on_disk, cache=cache, version=version, git=git, task=task, data=data, engine=engine, machine_type=machine_type),
          ftdata(data, task=as.character(task)), .SD),
      .SDcols=c(paste(rep(c("timestamp","time_sec","mem_gb","chk_time_sec"), each=2), 1:2, sep="_"),
                paste("script", c("finish","start","stderr","recent"), sep="_"),
@@ -253,13 +261,14 @@ time_logs = function(path=getwd()) {
   ct = ct %>% filter(!(solution == 'duckdb-latest'))
   d = model_time(ct)
   ll <- load_logs(path=path)
+
   ll$solution[ll$solution == "arrow"] <- "R-arrow"
   l = model_logs(clean_logs(ll))
+
   q = model_questions(clean_questions(load_questions(path=path)))
   
   lq = merge_logs_questions(l, q)
   ld = merge_time_logsquestions(d, lq)
-  
   lld = transform(ld)
   lld
 }
