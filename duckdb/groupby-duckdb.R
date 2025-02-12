@@ -37,7 +37,6 @@ if (on_disk) {
 table_type = "TEMP"
 if (machine_type == 'c6id.4xlarge' && on_disk) {
   dbExecute(con, "pragma memory_limit='25G'")
-  table_type = ""
 }
 
 ncores = parallel::detectCores()
@@ -214,7 +213,7 @@ invisible(dbExecute(con, "DROP TABLE IF EXISTS ans"))
 if (machine_type != "c6id.4xlarge") {
   question = "largest two v3 by id6" # q8
   t = system.time({
-    dbExecute(con, sprintf("CREATE %s TABLE ans AS SELECT unnest(max_by({id6, v3}, v3, 3)) as largest2_v3 GROUP BY id6;", table_type))
+    dbExecute(con, sprintf("CREATE %s TABLE ans AS SELECT id6, unnest(max(v3, 2)) as largest2_v3 FROM x WHERE v3 IS NOT NULL GROUP BY id6;", table_type))
     print(c(nr<-dbGetQuery(con, "SELECT count(*) AS cnt FROM ans")$cnt, nc<-ncol(dbGetQuery(con, "SELECT * FROM ans LIMIT 0"))))
   })[["elapsed"]]
   m = memory_usage()
@@ -222,7 +221,7 @@ if (machine_type != "c6id.4xlarge") {
   write.log(run=1L, task=task, data=data_name, in_rows=in_nr, question=question, out_rows=nr, out_cols=nc, solution=solution, version=ver, git=git, fun=fun, time_sec=t, mem_gb=m, cache=cache, chk=make_chk(chk), chk_time_sec=chkt, on_disk=on_disk, machine_type=machine_type)
   invisible(dbExecute(con, "DROP TABLE IF EXISTS ans"))
   t = system.time({
-    dbExecute(con, sprintf("CREATE %s TABLE ans AS SELECT unnest(max_by({id6, v3}, v3, 3)) as largest2_v3 GROUP BY id6;", table_type))
+    dbExecute(con, sprintf("CREATE %s TABLE ans AS SELECT id6, unnest(max(v3, 2)) as largest2_v3 FROM x WHERE v3 IS NOT NULL GROUP BY id6;;", table_type))
     print(c(nr<-dbGetQuery(con, "SELECT count(*) AS cnt FROM ans")$cnt, nc<-ncol(dbGetQuery(con, "SELECT * FROM ans LIMIT 0"))))
   })[["elapsed"]]
   m = memory_usage()
