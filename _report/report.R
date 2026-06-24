@@ -49,6 +49,7 @@ load_time = function(path=getwd()) {
     !is.na(batch) &
       in_rows %in% c(1e7, 1e8, 1e9) &
       solution %in% get_report_solutions() &
+      !(solution=="duckdb" & question=="regression v1 v2 by id2 id4" & numeric_version(ifelse(solution=="duckdb", version, "0")) < "1.5.4") & # drop legacy R-era duckdb runs for this question only. R runs recorded chk to 8 decimal points, python only to 3, so the precisions are inconsistent.
       !batch %in% get_excluded_batch() &
       !(task=="groupby" & substr(data, 1L, 2L)=="G2") &
       batch >= 1605961721
