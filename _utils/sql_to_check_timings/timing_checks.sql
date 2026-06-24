@@ -39,6 +39,18 @@ select t1.chk, t2.chk, t1.solution, t2.solution from
  and t1.data = t2.data group by all;
 
 
+ select t1.question, t1.chk, t2.chk, t1.data, t1.solution, t1.version from
+   timings t1, timings t2 
+ where t1.chk != t2.chk 
+ and t1.question = t2.question 
+ and t1.task = t2.task
+ and t1.solution = 'duckdb'
+ and t2.solution = 'duckdb'
+ and t1.version = t2.version
+ and t1.version = '1.5.4'
+ and t1.data = t2.data group by all;
+
+
 select t1.question, t1.data, t1.out_rows, t2.solution, t2.out_rows from 
 timings t1, timings t2
 where t1.out_rows != t2.out_rows
@@ -47,3 +59,19 @@ and t1.solution != 'clickhouse'
 and t2.solution != 'clickhouse'
 and t1.question = 'medium outer on int'
 and t1.data = t2.data;
+
+
+# check result differences
+select * from 
+(select t1.question, t1.data, string_split(t1.chk, ';')::DOUBLE[] t1_ans, string_split(t2.chk, ';')::DOUBLE[] t2_ans, t1.solution, t1.version, t2.version from
+            timings t1, timings t2
+          where t1.chk != t2.chk
+          and t1.question = t2.question
+          and t1.task = t2.task
+          and t1.solution = 'duckdb'
+          and t2.solution = 'duckdb'
+          and t1.version = '1.5.4'
+          and t2.version like '%1.0%'
+          and t2.version not like '1.0.99.9000'
+          and t1.data like 'G1_1e9%'
+          and t1.data = t2.data group by all) where abs(t1_ans[1] - t2_ans[1]) > 0.002;
