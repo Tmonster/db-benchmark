@@ -5,8 +5,6 @@ export DEBIAN_FRONTEND=noninteractive
 export NEEDRESTART_MODE=a
 APT_OPTS='-y -qq -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold'
 
-cd ~/h2oai-db-benchmark
-
 sudo -E apt-get -qq update
 sudo -E apt-get $APT_OPTS upgrade
 
