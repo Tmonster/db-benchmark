@@ -7706,3 +7706,14 @@ ip-172-31-10-82,1793380032,clickhouse,26.11.1.888,,groupby,G1_1e9_1e2_5_0,179339
 ip-172-31-10-82,1793380032,clickhouse,26.11.1.888,,groupby,G1_1e9_1e2_5_0,1793395505.7985,finish,1,0,c6id.4xlarge
 ip-172-31-10-82,1793380032,clickhouse,26.11.1.888,,join,J1_1e9_NA_0_0,1793395520.81362,start,,,c6id.4xlarge
 ip-172-31-10-82,1793380032,clickhouse,26.11.1.888,,join,J1_1e9_NA_0_0,1793396622.23808,finish,4,0,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_0_0,1793614041.2305,start,,,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_0_0,1793615000.09493,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e1_0_0,1793615015.11,start,,,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e1_0_0,1793615969.99904,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_2e0_0_0,1793615985.0141,start,,,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_2e0_0_0,1793617005.38907,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_0_1,1793617020.40412,start,,,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_0_1,1793617844.95761,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_5_0,1793617859.97267,start,,,c6id.4xlarge
+ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_5_0,1793619110.14606,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1793629472,datafusion,55.0.0,,groupby,G1_1e8_1e2_0_0,1793629475.51335,start,,,c6id.4xlarge
