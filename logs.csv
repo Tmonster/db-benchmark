@@ -7866,3 +7866,7 @@ ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_0_1,179361
 ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_0_1,1793617844.95761,finish,0,0,c6id.4xlarge
 ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_5_0,1793617859.97267,start,,,c6id.4xlarge
 ip-172-31-10-82,1793614040,duckdb,2.0.0,d54cbbe3df,groupby,G1_1e9_1e2_5_0,1793619110.14606,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_0_0,1794050729.52943,start,,,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_0_0,1794050733.59752,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_5_0,1794050748.605,start,,,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_5_0,1794050752.43882,finish,0,0,c6id.4xlarge
