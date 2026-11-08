@@ -8074,3 +8074,7 @@ ip-172-31-2-217,1794048743,collapse,2.1.8,,join,J1_1e8_NA_5_0,1794059083.24176,s
 ip-172-31-2-217,1794048743,collapse,2.1.8,,join,J1_1e8_NA_5_0,1794060332.78292,finish,0,0,c6id.metal
 ip-172-31-2-217,1794048743,collapse,2.1.8,,join,J1_1e8_NA_0_1,1794060347.79817,start,,,c6id.metal
 ip-172-31-2-217,1794048743,collapse,2.1.8,,join,J1_1e8_NA_0_1,1794061618.9778,finish,0,0,c6id.metal
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_0_0,1794050729.52943,start,,,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_0_0,1794050733.59752,finish,0,0,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_5_0,1794050748.605,start,,,c6id.4xlarge
+ip-172-31-10-82,1794050728,datafusion,55.0.0,,join,J1_1e7_NA_5_0,1794050752.43882,finish,0,0,c6id.4xlarge
